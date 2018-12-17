@@ -9,7 +9,7 @@ using namespace sf;
 
 
 
-RenderWindow window(sf::VideoMode(1400, 700), "GAME");//инициализируется объект окна игры
+RenderWindow window(sf::VideoMode(800, 400), "GAME");//инициализируется объект окна игры
 
 
 Map::Map() {//конструктор класса
@@ -22,8 +22,8 @@ Map::Map() {//конструктор класса
 
 	Clock clock;
 
-	window.clear(Color(33, 30, 30));
-
+	
+	
 }
 
 Map::~Map() {
@@ -35,6 +35,7 @@ Map::~Map() {
 
 void Map::drawing() {
 
+
 	for (int i = 0; i < HEIGHT_MAP; i++)
 		for (int j = 0; j < WIDTH_MAP; j++)
 		{
@@ -44,11 +45,13 @@ void Map::drawing() {
 			if ((TileMap[i][j] == 'w')) s_map.setTextureRect(IntRect(0, 32, 32, 32));
 			if ((TileMap[i][j] == '1')) s_map.setTextureRect(IntRect(0, 0, 32, 32));
 
+			
 
 			s_map.setPosition(j * 32, i * 32);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один 
 
 			window.draw(s_map);//рисуем квадратики на экран
 
+			
 
 		}
 }

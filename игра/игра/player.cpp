@@ -4,9 +4,7 @@
 #include "globals.h"
 #include <iostream>
 #include "map.h"
-
-
-
+#include "view.h"
 
 
 Player::Player()
@@ -16,7 +14,7 @@ Player::Player()
 
 Player::Player(String File, float X, float Y, float W, float H)
 {
-
+	view.reset(sf::FloatRect(0, 0, 800, 400));//размер "вида" камеры при создании объекта вида камеры. (потом можем мен€ть как хотим) „то то типа инициализации.
 	File;//им€ файла+расширение
 	w = W; h = H;//высота и ширина
 	imagee.loadFromFile("images/" + File);//запихиваем в image наше изображение вместо File мы передадим то, что пропишем при создании объекта. ¬ нашем случае "hero.png" и получитс€ запись идентична€ 	image.loadFromFile("images/hero/png");
@@ -63,6 +61,13 @@ void Player::update(float time)
 }
 
 
+float Player::getplayercoordinateX() {	//этим методом будем забирать координату ’	
+	return x;
+}
+float Player::getplayercoordinateY() {	//этим методом будем забирать координату Y 	
+	return y;
+}
+
 
 void Player::draw_p() {
 
@@ -71,15 +76,11 @@ void Player::draw_p() {
 
 	time = time / 800;
 	
-
-
-
 	//Player p("hero_d.png", 48, 48, 34.0, 34.0);//создаем объект p класса player,задаем "hero.png" как им€ файла+расширение, далее координата ’,”, ширина, высота
 
 	float coordinatePlayerX, coordinatePlayerY = 0;
 	coordinatePlayerX = getplayercoordinateX();
 	coordinatePlayerY = getplayercoordinateY();
-
 
 
 	if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A)))) {
@@ -112,12 +113,17 @@ void Player::draw_p() {
 		CurrentFrame += 0.005*time; //служит дл€ прохождени€ по "кадрам". переменна€ доходит до трех суммиру€ произведение времени и скорости. изменив 0.005 можно изменить скорость анимации
 		if (CurrentFrame > 3) CurrentFrame -= 3;
 		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 0, 32, 32));
-
-
 	}
+
 	update(time);
 
 	window.draw(sprite);//рисуем квадратики на экран
+
+	getplayercoordinateforview(coordinatePlayerX, coordinatePlayerY);	
+
+	viewmap(time);//функци€ скроллинга карты, передаем ей врем€ sfml
+
+	window.setView(view);//"оживл€ем" камеру в окне sfml
 
 }
 
@@ -151,10 +157,5 @@ void Player::InteractionWithMap()
 }
 
 
-float Player::getplayercoordinateX() {	//этим методом будем забирать координату ’	
-	return x;
-}
-float Player::getplayercoordinateY() {	//этим методом будем забирать координату Y 	
-	return y;
-}
+
 

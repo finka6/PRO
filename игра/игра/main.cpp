@@ -27,9 +27,10 @@ int main()
 				window.close();
 		}
 		
+		window.clear(Color(33, 30, 30));
 		m.drawing();
 		z.draw_p();
-
+	
 
 		window.display();
 	}

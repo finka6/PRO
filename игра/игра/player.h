@@ -4,8 +4,6 @@
 using namespace sf;
 
 
-using namespace sf;
-
 class Player {
 private:
 	float x, y;
