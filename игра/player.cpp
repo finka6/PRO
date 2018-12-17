@@ -32,6 +32,12 @@ Player::Player(String File, float X, float Y, float W, float H)
 	speed = 0;
 	dir = 0;
 	key = 0;
+	hp = 3;
+	life = true;
+	hpbar.setFillColor(Color::Red);
+	hpbar.setPosition(64.f, 10.f);
+	hpbar.setSize(Vector2f((float)hp * 60.f, 20.f));
+	
 	
 
 	CurrentFrame = 0;//хранит текущий кадр
@@ -59,7 +65,7 @@ void Player::update(float time)
 	speed = 0;//зануляем скорость, чтобы персонаж остановился.
 	sprite.setPosition(x, y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
 	InteractionWithMap();
-
+	hpbar.setSize(Vector2f((float)hp * 60.f, 10.f));
 }
 
 
@@ -167,10 +173,14 @@ void Player::InteractionWithMap()
 			{
 				if (key >= 1)
 				{
-					TileMap[i + 1][j] = ' ';
+					TileMap[i + 1][j] = '[';
 				}
 			}
-
+			if (TileMap[i][j] == 'h') 
+			{
+				hp += 1;//если взяли сердечко,то переменная health=health+1;
+				TileMap[i][j] = ' ';
+			}
 
 			
 		}

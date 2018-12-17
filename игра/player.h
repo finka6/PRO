@@ -24,11 +24,14 @@ public:
 	Clock clock;
 	float time;
 	int key;
+	int hp;
+	bool life;
 	void draw_p();
 	float CurrentFrame;
 	float coordinatePlayerX, coordinatePlayerY;
 	float getplayercoordinateY();
 	float getplayercoordinateX();
+	RectangleShape hpbar;
 
 
 

@@ -17,7 +17,7 @@ int main()
 	Clock clock;
 	
 
-	while (window.isOpen())
+	while (window.isOpen() && z.hp>=0)
 	{
 
 		sf::Event event;
@@ -30,7 +30,7 @@ int main()
 		m.drawing();
 		z.draw_p();
 
-
+		window.draw(z.hpbar);
 		window.display();
 	}
 
