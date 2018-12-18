@@ -26,7 +26,9 @@ public:
 	float coordinatePlayerX, coordinatePlayerY;
 	float getplayercoordinateY();
 	float getplayercoordinateX();
-
-
+	RectangleShape hpbar;
+	int key;
+	int hp;
+	bool life;
 
 };
