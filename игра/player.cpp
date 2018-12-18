@@ -36,7 +36,7 @@ Player::Player(String File, float X, float Y, float W, float H)
 	hp = 3;
 	life = true;
 	hpbar.setFillColor(Color::Red);
-	hpbar.setPosition(64.f, 10.f);
+	hpbar.setPosition(128, 10.f);
 	hpbar.setSize(Vector2f((float)hp * 60.f, 20.f));
 	
 

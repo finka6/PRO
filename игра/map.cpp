@@ -4,12 +4,7 @@
 #include <fstream>
 #include <string>
 
-
-using namespace sf;
-
-
-
-RenderWindow window(sf::VideoMode(1400, 700), "GAME");//инициализируется объект окна игры
+RenderWindow window(sf::VideoMode(1400, 700), "GAME");
 
 
 Map::Map() {//конструктор класса
@@ -22,7 +17,7 @@ Map::Map() {//конструктор класса
 
 	Clock clock;
 
-	window.clear(Color(33, 30, 30));
+	
 
 }
 
@@ -34,7 +29,6 @@ Map::~Map() {
 
 
 void Map::drawing() {
-
 	for (int i = 0; i < HEIGHT_MAP; i++)
 		for (int j = 0; j < WIDTH_MAP; j++)
 		{

@@ -26,7 +26,6 @@ public:
 	int hp;
 	bool life;
 	void draw_p();
-	void run();
 	float CurrentFrame;
 	float coordinatePlayerX, coordinatePlayerY;
 	float getplayercoordinateY();
