@@ -35,6 +35,7 @@ Player::Player(String File, float X, float Y, float W, float H)
 	key = 0;
 	hp = 3;
 	life = true;
+	win = 0;
 	hpbar.setFillColor(Color::Red);
 	hpbar.setPosition(128, 10.f);
 	hpbar.setSize(Vector2f((float)hp * 60.f, 20.f));
@@ -71,11 +72,10 @@ void Player::update(float time)
 
 
 void Player::draw_p() {
-
 	time = clock.getElapsedTime().asMicroseconds();
 	clock.restart();
 
-	time = time / 800;
+	time = time / 400;
 	
 
 	//Player p("hero_d.png", 48, 48, 34.0, 34.0);
@@ -183,7 +183,10 @@ void Player::InteractionWithMap()
 				TileMap[i][j] = ' ';
 				
 			}
-
+			if (TileMap[i][j] == '1')
+			{
+				win +=1;
+			}
 			
 		}
 }

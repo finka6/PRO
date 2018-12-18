@@ -4,8 +4,7 @@
 #include "map.h"
 #include "globals.h"
 #include "player.h"
-#include <fstream>
-#include <string>
+
 
 using namespace std;
 using namespace sf;
@@ -58,6 +57,16 @@ void menu(RenderWindow & window) {
 	}
 	////////////////////////////////////////////////////
 }
+void winner(RenderWindow & window)
+{
+	Texture winning_screen;
+	winning_screen.loadFromFile("images/pobeda.jpg");
+	Sprite winscreen(winning_screen);
+	winscreen.setPosition(0, 0);
+
+	window.draw(winscreen);
+	window.display();
+}
 
 int main()
 {
@@ -84,7 +93,19 @@ int main()
 
 	while (window.isOpen())
 	{
+		if (z.win >= 1)
+		{
+			music.stop();
+			Music pobeda;
+			pobeda.openFromFile("audio/pobeda.ogg");
+			pobeda.setVolume(100);
+			pobeda.play();
+			window.close();
+			RenderWindow window(sf::VideoMode(1400, 700), "GAME");
+			winner(window); while (!Mouse::isButtonPressed(Mouse::Right));
+			
 		
+		}
 		sf::Event event;
 			while (window.pollEvent(event))
 			{
@@ -99,6 +120,7 @@ int main()
 			window.draw(text);
 			window.draw(z.hpbar);
 			window.display();
+			cout << z.win << endl;
 		}
 
 	return 0;

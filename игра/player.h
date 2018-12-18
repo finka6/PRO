@@ -31,6 +31,6 @@ public:
 	float getplayercoordinateY();
 	float getplayercoordinateX();
 	RectangleShape hpbar;
-
+	int win;
 	
 };
