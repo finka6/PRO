@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "player.h"
 #include "globals.h"
 #include <iostream>
 #include "map.h"
-
+using namespace sf;
 
 
 
@@ -37,7 +38,6 @@ Player::Player(String File, float X, float Y, float W, float H)
 	hpbar.setFillColor(Color::Red);
 	hpbar.setPosition(64.f, 10.f);
 	hpbar.setSize(Vector2f((float)hp * 60.f, 20.f));
-	
 	
 
 	CurrentFrame = 0;//хранит текущий кадр
@@ -78,9 +78,7 @@ void Player::draw_p() {
 	time = time / 800;
 	
 
-
-
-	//Player p("hero_d.png", 48, 48, 34.0, 34.0);//создаем объект p класса player,задаем "hero.png" как имя файла+расширение, далее координата Х,У, ширина, высота
+	//Player p("hero_d.png", 48, 48, 34.0, 34.0);
 
 	float coordinatePlayerX, coordinatePlayerY = 0;
 	coordinatePlayerX = getplayercoordinateX();
@@ -89,11 +87,11 @@ void Player::draw_p() {
 
 
 	if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A)))) {
-		dir = 1; speed = 0.1;//dir =1 - направление вверх, speed =0.1 - скорость движения. Заметьте - время мы уже здесь ни на что не умножаем и нигде не используем каждый раз
+		dir = 1; speed = 0.1;
 		CurrentFrame += 0.005*time;
 		if (CurrentFrame > 3) CurrentFrame -= 3;
-		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 32, 32, 32)); //через объект p класса player меняем спрайт, делая анимацию (используя оператор точку)
-
+		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 32, 32, 32)); 
+		
 	}
 
 
@@ -102,7 +100,7 @@ void Player::draw_p() {
 		CurrentFrame += 0.005*time;
 		if (CurrentFrame > 3) CurrentFrame -= 3;
 		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 65, 32, 32)); //через объект p класса player меняем спрайт, делая анимацию (используя оператор точку)
-
+		
 	}
 
 	if ((Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W)))) {
@@ -110,15 +108,15 @@ void Player::draw_p() {
 		CurrentFrame += 0.005*time;
 		if (CurrentFrame > 3) CurrentFrame -= 3;
 		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 96, 32, 32)); //через объект p класса player меняем спрайт, делая анимацию (используя оператор точку)
-
+		
 	}
 
-	if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S)))) { //если нажата клавиша стрелка влево или англ буква А
+	if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S)))) { //если нажата клавиша стрелка влево или англ буква 
 		dir = 2; speed = 0.1;//направление вверх, см выше
 		CurrentFrame += 0.005*time; //служит для прохождения по "кадрам". переменная доходит до трех суммируя произведение времени и скорости. изменив 0.005 можно изменить скорость анимации
 		if (CurrentFrame > 3) CurrentFrame -= 3;
 		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 0, 32, 32));
-
+		
 
 	}
 	update(time);
@@ -126,6 +124,7 @@ void Player::draw_p() {
 	window.draw(sprite);//рисуем квадратики на экран
 
 }
+
 
 
 void Player::InteractionWithMap()
@@ -158,6 +157,7 @@ void Player::InteractionWithMap()
 			if (TileMap[i][j] == 'k') {
 				TileMap[i][j] = ' '; 
 				key += 1;
+			
 
 
 			}
@@ -174,12 +174,14 @@ void Player::InteractionWithMap()
 				if (key >= 1)
 				{
 					TileMap[i + 1][j] = '[';
+					
 				}
 			}
 			if (TileMap[i][j] == 'h') 
 			{
 				hp += 1;//если взяли сердечко,то переменная health=health+1;
 				TileMap[i][j] = ' ';
+				
 			}
 
 			

@@ -4,7 +4,6 @@
 using namespace sf;
 
 
-using namespace sf;
 
 class Player {
 private:
@@ -27,12 +26,12 @@ public:
 	int hp;
 	bool life;
 	void draw_p();
+	void run();
 	float CurrentFrame;
 	float coordinatePlayerX, coordinatePlayerY;
 	float getplayercoordinateY();
 	float getplayercoordinateX();
 	RectangleShape hpbar;
 
-
-
+	
 };

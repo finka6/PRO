@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "map.h"
 #include "globals.h"
 #include "player.h"
@@ -15,7 +16,13 @@ int main()
 	Map m;
 	//Player z;
 	Clock clock;
-	
+	Music music;
+	music.openFromFile("audio/ost.ogg");
+	music.setVolume(50);
+	music.play();
+	music.setLoop(true);
+
+
 
 	while (window.isOpen() && z.hp>=0)
 	{
