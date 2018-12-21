@@ -57,14 +57,36 @@ void menu(RenderWindow & window) {
 	}
 	////////////////////////////////////////////////////
 }
+
+
 void winner(RenderWindow & window)
 {
 	Texture winning_screen;
-	winning_screen.loadFromFile("images/pobeda.jpg");
+	winning_screen.loadFromFile("images/pobeg.jpg");
 	Sprite winscreen(winning_screen);
 	winscreen.setPosition(0, 0);
 
 	window.draw(winscreen);
+	window.display();
+}
+void ss(RenderWindow & window)
+{
+	Texture ricka;
+	ricka.loadFromFile("images/rick.jpg");
+	Sprite rick(ricka);
+	rick.setPosition(0, 0);
+
+	window.draw(rick);
+	window.display();
+}
+void lose(RenderWindow & window)
+{
+	Texture losee;
+	losee.loadFromFile("images/porazh.jpg");
+	Sprite lose(losee);
+	lose.setPosition(0, 0);
+
+	window.draw(lose);
 	window.display();
 }
 
@@ -91,21 +113,42 @@ int main()
 	Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
 	text.setStyle(sf::Text::Bold);
 
-	while (window.isOpen())
-	{
-		if (z.win >= 1)
+		while (window.isOpen())
 		{
-			music.stop();
-			Music pobeda;
-			pobeda.openFromFile("audio/pobeda.ogg");
-			pobeda.setVolume(100);
-			pobeda.play();
-			window.close();
-			RenderWindow window(sf::VideoMode(1400, 700), "GAME");
-			winner(window); while (!Mouse::isButtonPressed(Mouse::Right));
-			
-		
-		}
+			if (z.win >= 1)
+			{
+				music.stop();
+				Music pobeda;
+				pobeda.openFromFile("audio/pobeda.ogg");
+				pobeda.setVolume(100);
+				pobeda.play();
+				window.close();
+				RenderWindow window(sf::VideoMode(1400, 700), "GAME");
+				winner(window); while (!Mouse::isButtonPressed(Mouse::Right));
+			}
+			if (z.hp <= 0)
+			{
+				music.stop();
+				Music lost;
+				lost.openFromFile("audio/lose.ogg");
+				lost.setVolume(100);
+				lost.play();
+				window.close();
+				RenderWindow window(sf::VideoMode(1400, 700), "GAME");
+				lose(window); while (!Mouse::isButtonPressed(Mouse::Right));
+			}
+			if (z.ss >= 1)
+			{
+				music.stop();
+				Music rick;
+				rick.openFromFile("audio/ss.ogg");
+				rick.setVolume(100);
+				rick.play();
+				window.close();
+				RenderWindow window(sf::VideoMode(1300, 700), "GAME");
+				ss(window); while (!Keyboard::isKeyPressed(Keyboard::Escape));
+			}
+
 		sf::Event event;
 			while (window.pollEvent(event))
 			{
@@ -120,7 +163,7 @@ int main()
 			window.draw(text);
 			window.draw(z.hpbar);
 			window.display();
-			cout << z.win << endl;
+		
 		}
 
 	return 0;

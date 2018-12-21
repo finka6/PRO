@@ -32,5 +32,5 @@ public:
 	float getplayercoordinateX();
 	RectangleShape hpbar;
 	int win;
-	
+	int ss;
 };

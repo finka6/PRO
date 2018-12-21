@@ -187,7 +187,10 @@ void Player::InteractionWithMap()
 			{
 				win +=1;
 			}
-			
+			if (TileMap[i][j] == 's')
+			{
+				ss += 1;
+			}
 		}
 }
 

@@ -136,7 +136,6 @@
     <ClInclude Include="globals.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="win_screen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
