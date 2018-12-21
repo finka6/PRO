@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "player.h"
 #include "globals.h"
 #include <iostream>
 #include "map.h"
-
+using namespace sf;
 
 
 
@@ -31,8 +32,14 @@ Player::Player(String File, float X, float Y, float W, float H)
 	dy = 0;
 	speed = 0;
 	dir = 0;
-
-	
+	key = 0;
+	hp = 200;
+	life = true;
+	win = 0;
+	hpbar.setFillColor(Color::Red);
+	hpbar.setPosition(128, 10.f);
+	hpbar.setSize(Vector2f((float)hp * 1.f, 10.f));
+	ss = 0;
 
 	CurrentFrame = 0;//хранит текущий кадр
 	Clock clock;
@@ -59,22 +66,19 @@ void Player::update(float time)
 	speed = 0;//зануляем скорость, чтобы персонаж остановился.
 	sprite.setPosition(x, y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
 	InteractionWithMap();
-
+	hpbar.setSize(Vector2f((float)hp * 1.f, 10.f));
 }
 
 
 
 void Player::draw_p() {
-
 	time = clock.getElapsedTime().asMicroseconds();
 	clock.restart();
 
-	time = time / 800;
-	
+	time = time / 650;
 
 
-
-	//Player p("hero_d.png", 48, 48, 34.0, 34.0);//создаем объект p класса player,задаем "hero.png" как имя файла+расширение, далее координата Х,У, ширина, высота
+	//Player p("hero_d.png", 48, 48, 34.0, 34.0);
 
 	float coordinatePlayerX, coordinatePlayerY = 0;
 	coordinatePlayerX = getplayercoordinateX();
@@ -83,10 +87,10 @@ void Player::draw_p() {
 
 
 	if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A)))) {
-		dir = 1; speed = 0.1;//dir =1 - направление вверх, speed =0.1 - скорость движения. Заметьте - время мы уже здесь ни на что не умножаем и нигде не используем каждый раз
+		dir = 1; speed = 0.1;
 		CurrentFrame += 0.005*time;
 		if (CurrentFrame > 3) CurrentFrame -= 3;
-		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 32, 32, 32)); //через объект p класса player меняем спрайт, делая анимацию (используя оператор точку)
+		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 32, 32, 32));
 
 	}
 
@@ -107,7 +111,7 @@ void Player::draw_p() {
 
 	}
 
-	if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S)))) { //если нажата клавиша стрелка влево или англ буква А
+	if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S)))) { //если нажата клавиша стрелка влево или англ буква 
 		dir = 2; speed = 0.1;//направление вверх, см выше
 		CurrentFrame += 0.005*time; //служит для прохождения по "кадрам". переменная доходит до трех суммируя произведение времени и скорости. изменив 0.005 можно изменить скорость анимации
 		if (CurrentFrame > 3) CurrentFrame -= 3;
@@ -122,12 +126,15 @@ void Player::draw_p() {
 }
 
 
+
 void Player::InteractionWithMap()
 {
 
 	for (int i = y / 32; i < ((y + h) / 32); i++)//проходимся по тайликам, контактирующим с игроком,, то есть по всем квадратикам размера 32*32, которые мы окрашивали в 9 уроке. про условия читайте ниже.
 		for (int j = x / 32; j < ((x + w) / 32); j++)//икс делим на 32, тем самым получаем левый квадратик, с которым персонаж соприкасается. (он ведь больше размера 32*32, поэтому может одновременно стоять на нескольких квадратах). А j<(x + w) / 32 - условие ограничения координат по иксу. то есть координата самого правого квадрата, который соприкасается с персонажем. таким образом идем в цикле слева направо по иксу, проходя по от левого квадрата (соприкасающегося с героем), до правого квадрата (соприкасающегося с героем)
 		{
+
+
 			if (TileMap[i][j] == '0')//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
 			{
 				if (dy > 0)//если мы шли вниз,
@@ -147,6 +154,44 @@ void Player::InteractionWithMap()
 					x = j * 32 + 32;//аналогично идем влево
 				}
 			}
+			if (TileMap[i][j] == 'k') {
+				TileMap[i][j] = ' ';
+				key += 1;
+
+
+
+			}
+			if (TileMap[i][j] == 'c') //если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
+			{
+				if (dy > 0)//если мы шли вниз,
+				{
+					y = i * 32 - h;//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
+				}
+
+			}
+			if (TileMap[i][j] == 'x')
+			{
+				if (key >= 1)
+				{
+					TileMap[i + 1][j] = '[';
+
+				}
+			}
+			if (TileMap[i][j] == 'h')
+			{
+				hp += 80;//если взяли сердечко,то переменная health=health+1;
+				TileMap[i][j] = ' ';
+
+			}
+			if (TileMap[i][j] == '1')
+			{
+				win += 1;
+			}
+			if (TileMap[i][j] == 's')
+			{
+				ss += 1;
+			}
+
 		}
 }
 
@@ -156,5 +201,11 @@ float Player::getplayercoordinateX() {	//этим методом будем забирать координату 
 }
 float Player::getplayercoordinateY() {	//этим методом будем забирать координату Y 	
 	return y;
+}
+
+void Player::Damage() {
+
+	hp--;
+	return;
 }
 
