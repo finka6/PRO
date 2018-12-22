@@ -4,6 +4,7 @@
 #include "map.h"
 #include "globals.h"
 #include "player.h"
+#include "Enemy.h"
 
 
 using namespace std;
@@ -90,6 +91,8 @@ void lose(RenderWindow & window)
 	window.display();
 }
 
+
+	
 int main()
 {
 
@@ -107,6 +110,10 @@ int main()
 	music.setVolume(50);
 	music.play();
 	music.setLoop(true);
+
+	Entity d("dog.png", 64, 256, 32, 32, "dog");
+	Entity p("police.png", 64, 156, 32, 32, "police");
+
 	
 	Font font;//רנטפע 
 	font.loadFromFile("Ben_Krush.ttf");//ןונוהאול םארולף רנטפעף פאיכ רנטפעא
@@ -158,6 +165,8 @@ int main()
 			window.clear(Color(33, 30, 30));
 			m.drawing();
 			z.draw_p();
+			p.draw();
+			d.draw();
 			text.setString("Çהמנמגüו:");
 			text.setPosition(0,0);
 			window.draw(text);
