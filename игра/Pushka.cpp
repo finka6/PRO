@@ -17,12 +17,6 @@ pushka::pushka(int x, int y) {
 
 void Push::drawing(float pX, float pY, Player & playerhp)
 {
-	time = clock.getElapsedTime().asMicroseconds();
-	clock.restart();
-
-	time = time / 800;
-
-
 	sprite.setPosition(rect.left, rect.top);
 
 	rect.left = rect.left + dx * time;
@@ -69,7 +63,7 @@ void Push::Bullet::drawing() {
 	window.draw(sprite);
 }
 
-//////////????????? ??? 0 ?? ?????(?????)
+
 void Push::Bullet::collisionBullet() {
 
 	for (int i = (bullet_rect.top) / 32; i < (bullet_rect.top + 32) / 32; i++)
@@ -87,7 +81,6 @@ Push::Bullet::~Bullet() {
 
 }
 
-//////////////////////????????? ??? ?????????????? ? ???????
 void Push::Bullet::destroyBall(Player &p) {
 	if ((((p.getplayercoordinateX()) >= ((bullet_rect.left))) && ((p.getplayercoordinateX()) <= ((bullet_rect.left) + 10))) && (((p.getplayercoordinateY()) >= (bullet_rect.top)) && ((p.getplayercoordinateY()) <= (bullet_rect.top) + 32))) {
 		life = false;

@@ -24,7 +24,11 @@
     <ClCompile Include="player.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Pushka.cpp">
+=======
+    <ClCompile Include="Enemy.cpp">
+>>>>>>> 2d9ffd61b6905f013a55c6e3fce62049a857057a
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +42,11 @@
     <ClInclude Include="player.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Pushka.h">
+=======
+    <ClInclude Include="Enemy.h">
+>>>>>>> 2d9ffd61b6905f013a55c6e3fce62049a857057a
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

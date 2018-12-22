@@ -9,7 +9,7 @@ class Push {
 public:
 
 	FloatRect rect;
-	void checkCollisionWithMap();
+
 	void drawing(float pX, float pY, Player & playerhp);
 	float dx, dy;
 	float x, y;
@@ -42,7 +42,7 @@ public:
 		Texture t;
 		Sprite sprite;
 
-		int direction;//??????????? ????
+		int direction;
 		float dx, dy;
 		Bullet(FloatRect rect, float loc_dx);
 		~Bullet();
