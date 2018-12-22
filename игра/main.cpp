@@ -4,6 +4,8 @@
 #include "map.h"
 #include "globals.h"
 #include "player.h"
+#include <list>
+#include "Pushka.h"
 
 
 using namespace std;
@@ -101,6 +103,22 @@ int main()
 	//Player z;
 	Clock clock;
 	
+	std::list<Push*> pus;
+	std::list<Push*>::iterator pp;
+
+	std::list<Push::Bullet*> bullets;
+	std::list<Push::Bullet*>::iterator bullets_iter;
+	for (int i = 0; i < HEIGHT_MAP; i++) {
+		for (int j = 0; j < WIDTH_MAP; j++) {
+			if (TileMap[i][j] == 'P') {
+
+				pus.push_back(new pushka(j, i));
+
+			}
+
+
+		}
+	}
 	
 	Music music;
 	music.openFromFile("audio/ost.ogg");
@@ -158,6 +176,31 @@ int main()
 			window.clear(Color(33, 30, 30));
 			m.drawing();
 			z.draw_p();
+			for (pp = pus.begin(); pp != pus.end(); pp++) {
+				(*pp)->drawing(z.getplayercoordinateX(), z.getplayercoordinateY(), z);
+
+
+				if ((*pp)->shoot > 300) {
+					(*pp)->shoot = 0;
+					FloatRect ff = (*pp)->FL();
+					float loc_dx = (*pp)->DX();
+					bullets.push_back(new Push::Bullet(ff, loc_dx));
+				}
+				(*pp)->shoot++;
+			}
+
+			for (bullets_iter = bullets.begin(); bullets_iter != bullets.end(); bullets_iter++) {
+				if ((*bullets_iter)->life) {
+
+					(*bullets_iter)->destroyBall(z);
+					(*bullets_iter)->drawing();
+				}
+				else {
+					delete((*bullets_iter));
+					bullets.remove(*bullets_iter);
+					break;
+				}
+			}
 			text.setString("Çהמנמגüו:");
 			text.setPosition(0,0);
 			window.draw(text);

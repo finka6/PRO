@@ -70,12 +70,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Андрей\Desktop\123\SFML-2.5.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Андрей\Desktop\123\SFML-2.5.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Домашний.DESKTOP-H4GVO03\Desktop\SFML-2.5.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Домашний.DESKTOP-H4GVO03\Desktop\SFML-2.5.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\Андрей\Desktop\123\SFML-2.5.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Андрей\Desktop\123\SFML-2.5.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Домашний.DESKTOP-H4GVO03\Desktop\SFML-2.5.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Домашний.DESKTOP-H4GVO03\Desktop\SFML-2.5.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -131,11 +131,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="Pushka.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="Pushka.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
