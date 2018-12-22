@@ -6,6 +6,9 @@
 #include "player.h"
 #include <list>
 #include "Pushka.h"
+#include "Enemy.h"
+
+
 
 
 using namespace std;
@@ -59,8 +62,6 @@ void menu(RenderWindow & window) {
 	}
 	////////////////////////////////////////////////////
 }
-
-
 void winner(RenderWindow & window)
 {
 	Texture winning_screen;
@@ -71,16 +72,7 @@ void winner(RenderWindow & window)
 	window.draw(winscreen);
 	window.display();
 }
-void ss(RenderWindow & window)
-{
-	Texture ricka;
-	ricka.loadFromFile("images/rick.jpg");
-	Sprite rick(ricka);
-	rick.setPosition(0, 0);
 
-	window.draw(rick);
-	window.display();
-}
 void lose(RenderWindow & window)
 {
 	Texture losee;
@@ -92,6 +84,8 @@ void lose(RenderWindow & window)
 	window.display();
 }
 
+
+
 int main()
 {
 
@@ -102,28 +96,46 @@ int main()
 	Map m;
 	//Player z;
 	Clock clock;
+
+	std::list<Entity*> enemys;
+	std::list<Entity*>::iterator bb;
 	
+
 	std::list<Push*> pus;
 	std::list<Push*>::iterator pp;
 
 	std::list<Push::Bullet*> bullets;
 	std::list<Push::Bullet*>::iterator bullets_iter;
-	
+
 	for (int i = 0; i < HEIGHT_MAP; i++) {
 		for (int j = 0; j < WIDTH_MAP; j++) {
+
+			if (TileMap[i][j] == 'L') {
+
+				enemys.push_back(new police(j, i));
+				cout << i << "   " << j << endl;
+
+			}
+
+			if (TileMap[i][j] == 'S') {
+
+				enemys.push_back(new dogs(j, i));
+
+			}
+
 			if (TileMap[i][j] == 'P') {
 
 				pus.push_back(new Pushka(j, i));
 
 			}
 
-
 		}
 	}
 	
+	
 	Music music;
 	music.openFromFile("audio/ost.ogg");
-	music.setVolume(50);
+	music.setVolume(0);
 	music.play();
 	music.setLoop(true);
 	
@@ -132,51 +144,51 @@ int main()
 	Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
 	text.setStyle(sf::Text::Bold);
 
-		while (window.isOpen())
+	while (window.isOpen())
+	{
+
+		if (z.win >= 1)
 		{
-			if (z.win >= 1)
-			{
-				music.stop();
-				Music pobeda;
-				pobeda.openFromFile("audio/pobeda.ogg");
-				pobeda.setVolume(100);
-				pobeda.play();
-				window.close();
-				RenderWindow window(sf::VideoMode(1400, 700), "GAME");
-				winner(window); while (!Mouse::isButtonPressed(Mouse::Right));
-			}
-			if (z.hp <= 0)
-			{
-				music.stop();
-				Music lost;
-				lost.openFromFile("audio/lose.ogg");
-				lost.setVolume(100);
-				lost.play();
-				window.close();
-				RenderWindow window(sf::VideoMode(1400, 700), "GAME");
-				lose(window); while (!Mouse::isButtonPressed(Mouse::Right));
-			}
-			if (z.ss >= 1)
-			{
-				music.stop();
-				Music rick;
-				rick.openFromFile("audio/ss.ogg");
-				rick.setVolume(100);
-				rick.play();
-				window.close();
-				RenderWindow window(sf::VideoMode(1300, 700), "GAME");
-				ss(window); while (!Keyboard::isKeyPressed(Keyboard::Escape));
-			}
+			music.stop();
+			Music pobeda;
+			pobeda.openFromFile("audio/pobeda.ogg");
+			pobeda.setVolume(100);
+			pobeda.play();
+			window.close();
+			RenderWindow window(sf::VideoMode(1400, 700), "GAME");
+			winner(window); while (!Mouse::isButtonPressed(Mouse::Right));
+		}
+		if (z.hp <= 0)
+		{
+			music.stop();
+			Music lost;
+			lost.openFromFile("audio/lose.ogg");
+			lost.setVolume(100);
+			lost.play();
+			window.close();
+			RenderWindow window(sf::VideoMode(1400, 700), "GAME");
+			lose(window); while (!Mouse::isButtonPressed(Mouse::Right));
+		}
+		
 
 		sf::Event event;
 			while (window.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
 					window.close();
+
 			}
 			window.clear(Color(33, 30, 30));
+
+
 			m.drawing();
 			z.draw_p();
+
+			for (bb = enemys.begin(); bb != enemys.end(); bb++) {
+				(*bb)->drawing(z.getplayercoordinateX(), z.getplayercoordinateY(), z);
+
+			}
+
 			for (pp = pus.begin(); pp != pus.end(); pp++) {
 				(*pp)->drawing();
 
@@ -202,12 +214,17 @@ int main()
 					break;
 				}
 			}
+
+		
+			
+
+
 			text.setString("Здоровье:");
 			text.setPosition(0,0);
 			window.draw(text);
 			window.draw(z.hpbar);
 			window.display();
-		
+			
 		}
 
 	return 0;

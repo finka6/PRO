@@ -59,6 +59,8 @@ void Push::Bullet::drawing() {
 
 void Push::Bullet::WithMap() {
 
+void Push::Bullet::collisionBullet() {
+
 	for (int i = (bullet_rect.top) / 32; i < (bullet_rect.top + 32) / 32; i++)
 		for (int j = (bullet_rect.left) / 32; j < (bullet_rect.left + 32) / 32; j++)
 		{
@@ -77,6 +79,9 @@ Push::Bullet::~Bullet() {
 //////////////////////ÏÐÎÏÀÄÀÅÒ ÏÐÈ ÂÇÀÈÌÎÄÅÉÑÒÂÈÈ Ñ ÈÃÐÎÊÎÌ//////////////////////////////////////////
 
 void Push::Bullet::WithPlayer(Player &p) {
+
+void Push::Bullet::destroyBall(Player &p) {
+
 	if ((((p.getplayercoordinateX()) >= ((bullet_rect.left))) && ((p.getplayercoordinateX()) <= ((bullet_rect.left) + 10))) && (((p.getplayercoordinateY()) >= (bullet_rect.top)) && ((p.getplayercoordinateY()) <= (bullet_rect.top) + 32))) {
 		life = false;
 //		p.Damage();

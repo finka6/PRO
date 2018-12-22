@@ -12,6 +12,8 @@ public:
 	void drawing();
 	FloatRect polozenie();
 	float uskorenie();
+
+	void drawing(float pX, float pY, Player & playerhp);
 	float dx, dy;
 	float x, y;
 	int w, h;

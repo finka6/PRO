@@ -29,8 +29,9 @@ public:
 	float CurrentFrame;
 	float coordinatePlayerX, coordinatePlayerY;
 	float getplayercoordinateY();
+	void Damage();
 	float getplayercoordinateX();
 	RectangleShape hpbar;
 	int win;
-	int ss;
+	void bDamage();
 };
