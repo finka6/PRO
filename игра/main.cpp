@@ -5,6 +5,7 @@
 #include "globals.h"
 #include "player.h"
 #include "Enemy.h"
+#include <list>
 
 
 using namespace std;
@@ -104,6 +105,31 @@ int main()
 	//Player z;
 	Clock clock;
 	
+	//////////////////////////////////////////////////ÑÏÈÑÎÊ//////////////////////////////////////////////////////////////////////
+
+
+	std::list<Entity*> enemys;
+	std::list<Entity*>::iterator bb;
+
+	for (int i = 0; i < HEIGHT_MAP; i++) {
+		for (int j = 0; j < WIDTH_MAP; j++) {
+
+			if (TileMap[i][j] == 'L') {
+
+				enemys.push_back(new police(j, i));
+				cout << i << "   " << j << endl;
+
+			}
+
+			if (TileMap[i][j] == 'S') {
+
+				enemys.push_back(new dogs(j, i));
+
+			}
+
+		}
+	}
+
 	
 	Music music;
 	music.openFromFile("audio/ost.ogg");
@@ -111,8 +137,7 @@ int main()
 	music.play();
 	music.setLoop(true);
 
-	Entity d("dog.png", 64, 256, 32, 32, "dog");
-	Entity p("police.png", 64, 156, 32, 32, "police");
+	
 
 	
 	Font font;//רנטפע 
@@ -165,8 +190,10 @@ int main()
 			window.clear(Color(33, 30, 30));
 			m.drawing();
 			z.draw_p();
-			p.draw();
-			d.draw();
+			for (bb = enemys.begin(); bb != enemys.end(); bb++) {
+				(*bb)->drawing(z.getplayercoordinateX(), z.getplayercoordinateY(), z);
+			}
+
 			text.setString("Çהמנמגüו:");
 			text.setPosition(0,0);
 			window.draw(text);

@@ -1,43 +1,41 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <iostream>
+#include "player.h"
 
 using namespace sf;
 
 class Entity {
 public:
 
-	Entity();
-
-	Entity(String File, float X, float Y, int W, int H, String Name);
-	void checkCollisionWithMap(float Dx, float Dy);
-	void update(float time);
+	FloatRect rect;
+	void checkCollisionWithMap();
+	void drawing(float pX, float pY, Player & playerhp);
 	float dx, dy;
 	float x, y;
 	int w, h;
 	float speed;
 	Image image;
 	float time;
-	Texture texture;
+	Texture t;
 	Sprite sprite;
-	String name; 
+	String name;
 	float CurrentFrame;
 	bool isMove;
 	float moveTimer;
-	void draw();
 	Clock clock;
 };
 
 
 class police : public Entity {
 public:
-	police(String File, float X, float Y, int W, int H, String Name);
-	
+
+	police(int x, int y);
+
 };
 
 class dogs : public Entity {
 public:
-	dogs(String File, float X, float Y, int W, int H, String Name);
-	
+	dogs(int x, int y);
+
 };
-   
