@@ -33,13 +33,13 @@ Player::Player(String File, float X, float Y, float W, float H)
 	speed = 0;
 	dir = 0;
 	key = 0;
-	hp = 3;
+	hp = 200;
 	life = true;
 	win = 0;
 	hpbar.setFillColor(Color::Red);
 	hpbar.setPosition(128, 10.f);
-	hpbar.setSize(Vector2f((float)hp * 60.f, 20.f));
-	
+	hpbar.setSize(Vector2f((float)hp * 1.f, 10.f));
+	ss = 0;
 
 	CurrentFrame = 0;//хранит текущий кадр
 	Clock clock;
@@ -66,7 +66,7 @@ void Player::update(float time)
 	speed = 0;//зануляем скорость, чтобы персонаж остановился.
 	sprite.setPosition(x, y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
 	InteractionWithMap();
-	hpbar.setSize(Vector2f((float)hp * 60.f, 10.f));
+	hpbar.setSize(Vector2f((float)hp * 1.f, 10.f));
 }
 
 
@@ -75,7 +75,7 @@ void Player::draw_p() {
 	time = clock.getElapsedTime().asMicroseconds();
 	clock.restart();
 
-	time = time / 400;
+	time = time / 650;
 	
 
 	//Player p("hero_d.png", 48, 48, 34.0, 34.0);
@@ -179,7 +179,7 @@ void Player::InteractionWithMap()
 			}
 			if (TileMap[i][j] == 'h') 
 			{
-				hp += 1;//если взяли сердечко,то переменная health=health+1;
+				hp += 80;//если взяли сердечко,то переменная health=health+1;
 				TileMap[i][j] = ' ';
 				
 			}
@@ -191,6 +191,7 @@ void Player::InteractionWithMap()
 			{
 				ss += 1;
 			}
+			
 		}
 }
 
@@ -202,3 +203,8 @@ float Player::getplayercoordinateY() {	//этим методом будем забирать координату 
 	return y;
 }
 
+void Player::Damage() {
+	
+	hp--;
+	return;
+}

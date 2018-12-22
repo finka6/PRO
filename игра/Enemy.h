@@ -1,7 +1,7 @@
-#pragma once
-#include "SFML/Graphics.hpp"
-#include <iostream>
-#include "player.h"
+#pragma once 
+#include "SFML/Graphics.hpp" 
+#include <iostream> 
+#include "player.h" 
 
 using namespace sf;
 
@@ -19,6 +19,7 @@ public:
 	float time;
 	Texture t;
 	Sprite sprite;
+	Sprite* ptr_sprite;
 	String name;
 	float CurrentFrame;
 	bool isMove;
