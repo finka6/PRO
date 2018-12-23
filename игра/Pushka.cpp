@@ -1,55 +1,47 @@
 #include "SFML/Graphics.hpp" 
 #include <iostream> 
 #include "map.h" 
-#include "globals.h" 
+#include "globals.h"  
 #include "player.h" 
 #include "Pushka.h"
 
 
 
-pushka::pushka(int x, int y) {
+Pushka::Pushka(int x, int y) {
 	t.loadFromFile("images/dogs.png");
 	sprite.setTexture(t);
 	sprite.setTextureRect(IntRect(0, 0, 23, 23));
 	rect = FloatRect(x * 32, y * 32, 0, 0);
-	dy = 0;
+	dx = 0;
 }
 
-void Push::drawing(float pX, float pY, Player & playerhp)
+void Push::drawing()
 {
 	sprite.setPosition(rect.left, rect.top);
-
-	rect.left = rect.left + dx * time;
-	rect.top = rect.top + dy * time;
-
-
-
 	window.draw(sprite);
-
-	if ((pY >= (rect.top - 15)) && (pY <= (rect.top + 32 + 15)) && (pX >= (rect.left - 15) && (pX <= (rect.left + 32 + 15)))) {
-		
-	}
-
 }
-FloatRect Push::FL() {
+
+
+FloatRect Push::polozenie() {
 	return rect;
 }
-float Push::DX() {
+float Push::uskorenie() {
 	return dx;
 }
 
-Push::Bullet::Bullet(FloatRect rect, float loc_dx) {
-	bullet_rect = rect;
+Push::Bullet::Bullet(FloatRect polozh, float uskor) {
+	bullet_rect = polozh;
 	life = true;
 	im.loadFromFile("images/pula.png");
-	im.createMaskFromColor(Color::Black);
+	sprite.setTextureRect(IntRect(0, 0, 23, 23));
 	t.loadFromImage(im);
 	sprite.setTexture(t);
-	dx = loc_dx * (-3);
-
+	//	dx = loc_dx * (-3);
+	dx = -0.1;
 }
 
 void Push::Bullet::drawing() {
+
 	time = clock.getElapsedTime().asMicroseconds();
 	clock.restart();
 
@@ -58,11 +50,14 @@ void Push::Bullet::drawing() {
 	sprite.setPosition(bullet_rect.left, bullet_rect.top);
 	bullet_rect.left = bullet_rect.left + dx * time;
 
-	collisionBullet();
+	WithMap();
 
 	window.draw(sprite);
 }
 
+//////////ÏÐÎÏÀÄÀÅÒ ÏÐÈ 0 ÍÀ ÊÀÐÒÅ(ÑÒÅÍÅ)/////////////////////////
+
+void Push::Bullet::WithMap() {
 
 void Push::Bullet::collisionBullet() {
 
@@ -81,10 +76,15 @@ Push::Bullet::~Bullet() {
 
 }
 
+//////////////////////ÏÐÎÏÀÄÀÅÒ ÏÐÈ ÂÇÀÈÌÎÄÅÉÑÒÂÈÈ Ñ ÈÃÐÎÊÎÌ//////////////////////////////////////////
+
+void Push::Bullet::WithPlayer(Player &p) {
+
 void Push::Bullet::destroyBall(Player &p) {
+
 	if ((((p.getplayercoordinateX()) >= ((bullet_rect.left))) && ((p.getplayercoordinateX()) <= ((bullet_rect.left) + 10))) && (((p.getplayercoordinateY()) >= (bullet_rect.top)) && ((p.getplayercoordinateY()) <= (bullet_rect.top) + 32))) {
 		life = false;
-		
+//		p.Damage();
 		return;
 	}
 }

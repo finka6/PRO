@@ -9,6 +9,9 @@ class Push {
 public:
 
 	FloatRect rect;
+	void drawing();
+	FloatRect polozenie();
+	float uskorenie();
 
 	void drawing(float pX, float pY, Player & playerhp);
 	float dx, dy;
@@ -19,19 +22,12 @@ public:
 	float time;
 	Texture t;
 	Sprite sprite;
-	Sprite* ptr_sprite;
 	String name;
 	float CurrentFrame;
-	bool isMove;
-	float moveTimer;
 	Clock clock;
-
-	FloatRect FL();
-	float DX();
-
 	int shoot = 0;
 
-	class Bullet {//????? ????
+	class Bullet {
 	public:
 
 		bool life;
@@ -45,9 +41,10 @@ public:
 		int direction;
 		float dx, dy;
 		Bullet(FloatRect rect, float loc_dx);
+		void WithMap();
 		~Bullet();
-		void collisionBullet();
-		void destroyBall(Player &p);
+
+		void WithPlayer(Player &p);
 		void drawing();
 
 	};
@@ -56,9 +53,9 @@ public:
 };
 
 
-class pushka : public Push {
+class Pushka : public Push {
 public:
 
-	pushka(int x, int y);
+	Pushka(int x, int y);
 
 };

@@ -107,8 +107,6 @@ int main()
 	std::list<Push::Bullet*> bullets;
 	std::list<Push::Bullet*>::iterator bullets_iter;
 
-	
-
 	for (int i = 0; i < HEIGHT_MAP; i++) {
 		for (int j = 0; j < WIDTH_MAP; j++) {
 
@@ -127,7 +125,7 @@ int main()
 
 			if (TileMap[i][j] == 'P') {
 
-				pus.push_back(new pushka(j, i));
+				pus.push_back(new Pushka(j, i));
 
 			}
 
@@ -192,14 +190,14 @@ int main()
 			}
 
 			for (pp = pus.begin(); pp != pus.end(); pp++) {
-				(*pp)->drawing(z.getplayercoordinateX(), z.getplayercoordinateY(), z);
+				(*pp)->drawing();
 
 
 				if ((*pp)->shoot > 300) {
 					(*pp)->shoot = 0;
-					FloatRect ff = (*pp)->FL();
-					float loc_dx = (*pp)->DX();
-					bullets.push_back(new Push::Bullet(ff, loc_dx));
+					FloatRect polozh = (*pp)->polozenie();
+					float uskor = (*pp)->uskorenie();
+					bullets.push_back(new Push::Bullet(polozh, uskor));
 				}
 				(*pp)->shoot++;
 			}
@@ -207,7 +205,7 @@ int main()
 			for (bullets_iter = bullets.begin(); bullets_iter != bullets.end(); bullets_iter++) {
 				if ((*bullets_iter)->life) {
 
-					(*bullets_iter)->destroyBall(z);
+					(*bullets_iter)->WithPlayer(z);
 					(*bullets_iter)->drawing();
 				}
 				else {

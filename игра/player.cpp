@@ -208,3 +208,8 @@ void Player::Damage() {
 	hp--;
 	return;
 }
+void Player::bDamage() {
+
+	hp-=65;
+	return;
+}
