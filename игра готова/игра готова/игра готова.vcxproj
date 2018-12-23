@@ -18,6 +18,20 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="Pushka.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="Pushka.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{2436894F-84EC-4E34-A35E-B9C290F06209}</ProjectGuid>
@@ -120,20 +134,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\игра\Enemy.cpp" />
-    <ClCompile Include="..\..\игра\map.cpp" />
-    <ClCompile Include="..\..\игра\player.cpp" />
-    <ClCompile Include="..\..\игра\Pushka.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\игра\Enemy.h" />
-    <ClInclude Include="..\..\игра\globals.h" />
-    <ClInclude Include="..\..\игра\map.h" />
-    <ClInclude Include="..\..\игра\player.h" />
-    <ClInclude Include="..\..\игра\Pushka.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
