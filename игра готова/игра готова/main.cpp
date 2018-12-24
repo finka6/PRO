@@ -10,6 +10,7 @@
 
 using namespace std;
 using namespace sf;
+
 void menu(RenderWindow & window) {
 	Texture menuTexture1, menuTexture2, menuTexture3, aboutTexture, menuBackground;
 	menuTexture1.loadFromFile("images/play.png");
@@ -89,10 +90,8 @@ int main()
 
 	menu(window);//вызов меню
 	Map drawing;
-	//Player draw_p;
 	Player z("hero_d.png", 48, 48, 23.0, 23.0);
 	Map m;
-	//Player z;
 	Clock clock;
 
 
@@ -114,7 +113,7 @@ int main()
 			if (TileMap[i][j] == 'L') {
 
 				enemy.push_back(new Police(j, i));
-				cout << i << "   " << j << endl;
+				
 
 			}
 
